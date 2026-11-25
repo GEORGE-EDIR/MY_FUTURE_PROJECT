@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillProof | Proving what you can do</title>
+  <style>
+    :root {
+      --navy: #10243e;
+      --blue: #1769e0;
+      --pale: #d7ddd4;
+      --text: #203047;
+      --muted: #d0def3;
+      --border: #e7064d;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.brand img {
+  display: block;
+  width: 220px;
+  max-width: 100%;
+  height: auto;
+}
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    .container { width: min(1120px, 92%); margin: auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: white;
+      border-bottom: 1px solid var(--border);
+    }
+    nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand { font-size: 1.35rem; font-weight: bold; color: var(--navy); }
+    .brand span {
+      display: inline-grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      margin-right: 8px;
+      border-radius: 10px;
+      color: white;
+      background: var(--blue);
+    }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links a:hover { color: var(--blue); }
+
+    .button {
+      display: inline-block;
+      padding: 11px 17px;
+      border: 0;
+      border-radius: 9px;
+      font-weight: bold;
+    }
+    .primary { color: white; background: var(--blue); }
+    .secondary { color: var(--navy); background: white; border: 1px solid #cbd8e8; }
+    .primary:hover { background: #1057bd; }
+
+    .hero {
+      padding: 75px 0;
+      background: linear-gradient(120deg, #edf5ff, white);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 45px;
+      align-items: center;
+    }
+    .tag {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 30px;
+      background: #dceaff;
+      color: #1758ad;
+      font-weight: bold;
+      font-size: .85rem;
+    }
+    h1 {
+      margin: 18px 0;
+      color: var(--navy);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+    }
+    h1 span { color: var(--blue); }
+    .intro { color: var(--muted); font-size: 1.1rem; }
+    .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; margin: 25px 0; }
+
+    .search {
+      display: flex;
+      gap: 8px;
+      padding: 8px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: white;
+    }
+    .search input { width: 100%; min-width: 0; padding: 10px; border: 0; outline: 0; }
+
+    .preview {
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: white;
+      box-shadow: 0 20px 50px #17385c18;
+    }
+    .preview h3 { margin-bottom: 0; color: var(--navy); }
+    .muted { color: var(--muted); }
+    .pill {
+      display: inline-block;
+      margin: 5px 4px 5px 0;
+      padding: 5px 10px;
+      border-radius: 20px;
+      background: var(--pale);
+      color: #315a8b;
+      font-size: .85rem;
+    }
+
+    section { padding: 65px 0; }
+    .section-title { text-align: center; margin: 0 0 12px; color: var(--navy); font-size: 2rem; }
+    .section-description { text-align: center; color: var(--muted); margin: 0 auto 35px; max-width: 650px; }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card {
+      padding: 23px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: white;
+    }
+    .card h3 { color: var(--navy); margin: 8px 0; }
+    .category { text-align: center; background: #f7faff; }
+    .category .emoji { font-size: 2rem; }
+
+    .workers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .worker { border: 1px solid var(--border); border-radius: 15px; padding: 22px; }
+    .worker h3 { margin: 0; color: var(--navy); }
+    .worker p { color: var(--muted); }
+    .rating { color: #d58b08; font-weight: bold; }
+
+    .cta {
+      padding: 35px;
+      border-radius: 20px;
+      background: var(--navy);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    footer { background: #0b1b30; color: #d1deee; padding: 35px 0; }
+    footer p { color: #aebed1; }
+     #dashboard {
+  display: none;
+  min-height: 60vh;
+  padding: 30px 0;
+  background: #f5f8fc;
+}
+
+#dashboard .container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+#dashboard .card {
+  width: 100%;
+  max-width: 700px;
+  margin: 0;
+  text-align: left;
+}
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      padding: 20px;
+      background: #07172dcc;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal.open { display: flex; }
+    .modal-box {
+      position: relative;
+      width: min(440px, 100%);
+      padding: 28px;
+      border-radius: 18px;
+      background: white;
+    }
+    .modal-box h2 { margin-top: 0; color: var(--navy); }
+    .close {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      border: 0;
+      background: #edf2f7;
+      border-radius: 7px;
+      font-size: 1.3rem;
+    }
+    .field { margin: 13px 0; }
+    .field label { display: block; margin-bottom: 5px; font-weight: bold; }
+    .field input, .field select {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #ccd8e6;
+      border-radius: 8px;
+    }
+    .modal-box .button { width: 100%; margin-top: 10px; }
+    .switch { margin-top: 15px; text-align: center; color: var(--muted); }
+    .switch button { border: 0; background: none; color: var(--blue); font-weight: bold; }
+    .message { display: none; margin: 12px 0; padding: 10px; border-radius: 8px; }
+    .message.show { display: block; }
+    .success { color: #12653f; background: #e8f8ef; }
+    .error { color: #9c2525; background: #fff0f0; }
+    #dashboard { display: none; min-height: 60vh; padding: 60px 0; background: #f5f8fc; }
+    #dashboard .card { max-width: 700px; margin: auto; }
+
+    @media (max-width: 800px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .cards, .workers { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+    }
+    @media (max-width: 560px) {
+      nav { align-items: flex-start; padding: 15px 0; }
+      .nav-links { font-size: .85rem; }
+      .hero { padding: 45px 0; }
+      .search { flex-direction: column; }
+      .cards, .workers { grid-template-columns: 1fr; }
+      .cta { display: block; }
+      .cta .button { margin-top: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+<a>
+  <nav class="container">
+    <a class="brand" href="#home"><span>S</span>SkillProof</a>
+    <div class="nav-links">
+        <a class="brand" href="#" aria-label="SkillProof home">
+  <img src="skillproof-logo.png" alt="SkillProof logo">
+</a>
+      <a href="#home">Home</a>
+      <a href="#workers">Find Skilled Workers</a>
+      <a href="#how">Find Jobs</a>
+      <a href="#about">About</a>
+      <a href="#" onclick="openAuth('login'); return false;">Login</a>
+      <a href="#" onclick="openAuth('register'); return false;">Register</a>
+    </div>
+  </nav>
+</header>
+
+<main id="mainSite">
+  <section class="hero" id="home">
+    <div class="container hero-grid">
+      <div>
+        <span class="tag">Skills deserve to be seen</span>
+        <h1>Your Skills Matter.<br><span>Prove What You Can Do.</span></h1>
+        <p class="intro">Showcase your practical abilities, build credibility, and connect with employers and customers — certificates are not the only way to demonstrate what you know.</p>
+        <div class="hero-buttons">
+          <button class="button primary" onclick="openAuth('register')">Showcase My Skills</button>
+          <a class="button secondary" href="#workers">Find Skilled Workers</a>
+        </div>
+        <form class="search" id="searchForm">
+          <input id="skillSearch" placeholder="Search a skill, e.g. electrician" aria-label="Search skill">
+          <input id="locationSearch" placeholder="Location, e.g. Nairobi" aria-label="Location">
+          <button class="button primary">Search</button>
+        </form>
+        <p id="searchMessage" class="muted" aria-live="polite"></p>
+      </div>
+      <div class="preview">
+        <div style="font-size:2.5rem">🧰</div>
+        <h3>George Edir Taban</h3>
+        <div class="muted">Automotive Mechanic · Nairobi</div>
+        <p class="rating">★★★★★ 4.8 <span class="muted">(42 jobs)</span></p>
+        <p>Experienced in diagnostics, brake systems, and practical repairs.</p>
+        <span class="pill">Engine diagnostics</span>
+        <span class="pill">Brake systems</span>
+        <span class="pill">Oil servicing</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="container">
+      <h2 class="section-title">How SkillProof Works</h2>
+      <p class="section-description">Turn your practical experience into evidence people can understand and trust.</p>
+      <div class="cards">
+        <article class="card"><h3>1. Create your profile</h3><p>Tell people what you do, where you work, and which skills you have developed.</p></article>
+        <article class="card"><h3>2. Showcase your work</h3><p>Add projects and describe your experience to demonstrate what you can do.</p></article>
+        <article class="card"><h3>3. Build credibility</h3><p>Grow your reputation through evidence, reviews, and future practical assessments.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#f7faff" id="categories">
+    <div class="container">
+      <h2 class="section-title">Popular Skill Categories</h2>
+      <p class="section-description">Explore practical skills across trades, technology, and creative work.</p>
+      <div class="cards">
+        <article class="card category"><div class="emoji">🔧</div><h3>Mechanics</h3></article>
+        <article class="card category"><div class="emoji">⚡</div><h3>Electricians</h3></article>
+        <article class="card category"><div class="emoji">🚰</div><h3>Plumbers</h3></article>
+        <article class="card category"><div class="emoji">🪚</div><h3>Carpenters</h3></article>
+        <article class="card category"><div class="emoji">🎨</div><h3>Graphic Designers</h3></article>
+        <article class="card category"><div class="emoji">💻</div><h3>Computer Technicians</h3></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="workers">
+    <div class="container">
+      <h2 class="section-title">Featured Skilled Workers</h2>
+      <p class="section-description">Sample profiles for demonstrating the worker search.</p>
+      <div class="workers" id="workerList">
+        <article class="worker" data-skill="mechanic automotive engine" data-location="nairobi">
+          <h3>George Edir Taban</h3><p>🔧 Automotive Mechanic · Nairobi</p>
+          <p class="rating">★ 4.8</p><p>5 years’ experience · 42 jobs completed</p>
+        </article>
+        <article class="worker" data-skill="carpenter woodworking" data-location="nairobi">
+          <h3>James K.</h3><p>🪚 Carpenter · Nairobi</p>
+          <p class="rating">★ 4.9</p><p>6 years’ experience · 73 jobs completed</p>
+        </article>
+        <article class="worker" data-skill="computer technician laptop repair" data-location="nairobi">
+          <h3>Brian O.</h3><p>💻 Computer Technician · Nairobi</p>
+          <p class="rating">★ 4.7</p><p>4 years’ experience · 39 jobs completed</p>
+        </article>
+      </div>
+      <p id="noResults" class="muted" style="display:none">No sample workers match. Try a different search.</p>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container cta">
+      <div><h2>Your ability is your story.</h2><p>Start building a profile that shows what you can do.</p></div>
+      <button class="button secondary" onclick="openAuth('register')">Create your account</button>
+    </div>
+  </section>
+</main>
+
+<section id="dashboard">
+  <div class="container">
+    <div class="card">
+      <h1 id="welcome"></h1>
+      <p id="dashboardInfo"></p>
+      <p>Your account has been created in this browser demo. Skill profiles, portfolios, job posting, and verification will be added in later development phases.</p>
+      <button class="button primary" onclick="logout()">Log out</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <a class="brand" style="color:white" href="#home"><span>S</span>SkillProof</a>
+    <p>Proving what you can do, not just what you studied.</p>
+    <p>Contact: hello@skillproof.com</p>
+    <small>Skill demonstration is not a substitute for legally required licences or qualifications.</small>
+  </div>
+</footer>
+
+<div class="modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <button class="close" onclick="closeAuth()" aria-label="Close">×</button>
+    <h2 id="modalTitle">Create an account</h2>
+    <p id="modalSubtitle">Join SkillProof and make your skills visible.</p>
+
+    <form id="authForm">
+      <div class="field" id="nameField">
+        <label for="fullName">Full name</label>
+        <input id="fullName" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="email">Email address</label>
+        <input id="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" minlength="6" required>
+      </div>
+      <div class="field" id="roleField">
+        <label for="role">Account type</label>
+        <select id="role">
+          <option>Skilled Worker</option>
+          <option>Employer</option>
+          <option>Customer</option>
+        </select>
+      </div>
+      <div class="field" id="locationField">
+        <label for="location">Location</label>
+        <input id="location" placeholder="e.g. Nairobi, Kenya">
+      </div>
+      <div id="formMessage" class="message" aria-live="polite"></div>
+      <button class="button primary" id="submitButton">Create account</button>
+    </form>
+    <div class="switch">
+      <span id="switchLabel">Already registered?</span>
+      <button id="switchButton" type="button" onclick="switchMode()">Login</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let authMode = "register";
+
+  function getUsers() {
+    return JSON.parse(localStorage.getItem("skillproofUsers") || "[]");
+  }
+
+  function openAuth(mode) {
+    authMode = mode;
+    document.getElementById("authModal").classList.add("open");
+    document.getElementById("modalTitle").textContent =
+      mode === "register" ? "Create an account" : "Welcome back";
+    document.getElementById("modalSubtitle").textContent =
+      mode === "register"
+        ? "Join SkillProof and make your skills visible."
+        : "Log in to your SkillProof account.";
+    document.getElementById("submitButton").textContent =
+      mode === "register" ? "Create account" : "Login";
+
+    document.getElementById("nameField").style.display =
+      mode === "register" ? "block" : "none";
+    document.getElementById("roleField").style.display =
+      mode === "register" ? "block" : "none";
+    document.getElementById("locationField").style.display =
+      mode === "register" ? "block" : "none";
+
+    document.getElementById("fullName").required = mode === "register";
+    document.getElementById("location").required = mode === "register";
+    document.getElementById("switchLabel").textContent =
+      mode === "register" ? "Already registered?" : "New to SkillProof?";
+    document.getElementById("switchButton").textContent =
+      mode === "register" ? "Login" : "Register";
+
+    showFormMessage("", "");
+  }
+
+  function closeAuth() {
+    document.getElementById("authModal").classList.remove("open");
+  }
+
+  function switchMode() {
+    openAuth(authMode === "register" ? "login" : "register");
+  }
+
+  function showFormMessage(text, type) {
+    const box = document.getElementById("formMessage");
+    box.textContent = text;
+    box.className = "message";
+    if (text) box.classList.add("show", type);
+  }
+
+  document.getElementById("authForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    const password = document.getElementById("password").value;
+    const role = document.getElementById("role").value;
+    const location = document.getElementById("location").value.trim();
+    const users = getUsers();
+
+    if (authMode === "register") {
+      if (users.some(user => user.email === email)) {
+        showFormMessage("An account with this email already exists. Please log in.", "error");
+        return;
+      }
+
+      const user = { name, email, password, role, location };
+      users.push(user);
+      localStorage.setItem("skillproofUsers", JSON.stringify(users));
+      localStorage.setItem("skillproofCurrentUser", JSON.stringify(user));
+      showDashboard(user);
+    } else {
+      const user = users.find(user => user.email === email && user.password === password);
+      if (!user) {
+        showFormMessage("Email or password is incorrect.", "error");
+        return;
+      }
+      localStorage.setItem("skillproofCurrentUser", JSON.stringify(user));
+      showDashboard(user);
+    }
+  });
+
+  function showDashboard(user) {
+    closeAuth();
+    document.getElementById("mainSite").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+    document.getElementById("welcome").textContent = "Welcome, " + user.name + "!";
+    document.getElementById("dashboardInfo").textContent =
+      "You are logged in as a " + user.role + " in " + user.location + ".";
+    window.scrollTo(0, 0);
+  }
+
+  function logout() {
+    localStorage.removeItem("skillproofCurrentUser");
+    document.getElementById("dashboard").style.display = "none";
+    document.getElementById("mainSite").style.display = "block";
+    window.scrollTo(0, 0);
+  }
+
+  document.getElementById("searchForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const skill = document.getElementById("skillSearch").value.trim().toLowerCase();
+    const location = document.getElementById("locationSearch").value.trim().toLowerCase();
+    const workers = document.querySelectorAll(".worker");
+    let visibleCount = 0;
+
+    workers.forEach(worker => {
+      const matchesSkill = !skill || worker.dataset.skill.includes(skill);
+      const matchesLocation = !location || worker.dataset.location.includes(location);
+      const show = matchesSkill && matchesLocation;
+      worker.style.display = show ? "block" : "none";
+      if (show) visibleCount++;
+    });
+
+    document.getElementById("noResults").style.display = visibleCount ? "none" : "block";
+    document.getElementById("searchMessage").textContent =
+      visibleCount + " sample worker(s) found.";
+    document.getElementById("workers").scrollIntoView({ behavior: "smooth" });
+  });
+
+  // Keep the login session for this browser demo when the page is refreshed.
+  const currentUser = localStorage.getItem("skillproofCurrentUser");
+  if (currentUser) {
+    try { showDashboard(JSON.parse(currentUser)); } catch (error) {
+      localStorage.removeItem("skillproofCurrentUser");
+    }
+  }
+</script>
+</body>
+</html>
